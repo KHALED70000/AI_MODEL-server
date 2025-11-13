@@ -31,6 +31,7 @@ async function run() {
 
         const DataBase = client.db('AI_MODEL_DB')
         const ALLmodelsCollection = DataBase.collection('AllModels')
+        const PurcheseCollection = DataBase.collection('Purchese')
 
         //APIs HERE......//
         app.post('/AllModels', async (req, res) => {
@@ -74,7 +75,7 @@ async function run() {
             const result = await ALLmodelsCollection.findOne(query);
             res.send(result);
         })
-        app.patch('/EditedModel/:id', async(res, req)=>{
+        app.patch('/EditedModel/:id', async(req, res)=>{
             const id = req.params.id;
             const updateInfo = req.body;
             const query = { _id: new ObjectId(id) };
@@ -89,6 +90,12 @@ async function run() {
                 }
             }
             const result = await ALLmodelsCollection.updateOne(query, update);
+            res.send(result);
+        })
+
+        app.post('/purchese', async(req, res)=>{
+            const purchesedMolel = req.body;
+            const result = await PurcheseCollection.insertOne(purchesedMolel)
             res.send(result);
         })
         //APIs HERE......//
