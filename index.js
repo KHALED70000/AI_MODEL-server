@@ -48,25 +48,30 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result)
         })
-        app.get('/AllModels/:id', async(req, res)=>{
+        app.get('/AllModels/:id', async (req, res) => {
             const id = req.params.id;
-            const query = {_id: new ObjectId(id)}
+            const query = { _id: new ObjectId(id) }
             const result = await ALLmodelsCollection.findOne(query);
             res.send(result);
         })
-        app.get('/Mymodels', async(req, res)=>{
+        app.get('/Mymodels', async (req, res) => {
             const email = req.query.email;
             const query = { createdBy: email }
             const cursor = ALLmodelsCollection.find(query);
-            const result = await cursor.toArray(cursor);
+            const result = await cursor.toArray();
 
             res.send(result);
         })
-        app.delete('/Mymodels/:id', async(req, res)=>{
+        app.delete('/Mymodels/:id', async (req, res) => {
             const id = req.params.id;
-            const query = {_id: new ObjectId(id)};
+            const query = { _id: new ObjectId(id) };
             const result = await ALLmodelsCollection.deleteOne(query);
-
+            res.send(result);
+        })
+        app.get('/Editmodels/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await ALLmodelsCollection.findOne(query);
             res.send(result);
         })
         //APIs HERE......//
