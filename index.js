@@ -98,6 +98,12 @@ async function run() {
             const result = await PurcheseCollection.insertOne(purchesedMolel)
             res.send(result);
         })
+
+         app.get('/purchese', async (req, res) => {
+            const cursor = PurcheseCollection.find()
+            const result = await cursor.toArray();
+            res.send(result)
+        })
         //APIs HERE......//
 
         await client.db("admin").command({ ping: 1 });
