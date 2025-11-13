@@ -74,6 +74,23 @@ async function run() {
             const result = await ALLmodelsCollection.findOne(query);
             res.send(result);
         })
+        app.patch('/EditedModel/:id', async(res, req)=>{
+            const id = req.params.id;
+            const updateInfo = req.body;
+            const query = { _id: new ObjectId(id) };
+            const update = {
+                $set: {
+                    name: updateInfo.name,
+                    framework: updateInfo.framework,
+                    useCase: updateInfo.useCase,
+                    dataset: updateInfo.dataset,
+                    description: updateInfo.description,
+                    image: updateInfo.image,
+                }
+            }
+            const result = await ALLmodelsCollection.updateOne(query, update);
+            res.send(result);
+        })
         //APIs HERE......//
 
         await client.db("admin").command({ ping: 1 });
