@@ -54,6 +54,14 @@ async function run() {
             const result = await ALLmodelsCollection.findOne(query);
             res.send(result);
         })
+        app.get('/Mymodels', async(req, res)=>{
+            const email = req.query.email;
+            const query = { createdBy: email }
+            const cursor = ALLmodelsCollection.find(query);
+            const result = await cursor.toArray(cursor);
+
+            res.send(result);
+        })
         //APIs HERE......//
 
         await client.db("admin").command({ ping: 1 });
